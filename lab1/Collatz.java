@@ -1,27 +1,29 @@
-/** Class that prints the Collatz sequence starting from a given number.
- *  @author YOUR NAME HERE
+/** Class that print the Collatz sequence starting from a given number.
+ *  @author Zhen Kang
  */
 public class Collatz {
-
-    /** Buggy implementation of nextNumber! */
+    /** Method that get the next term of a positive integer
+     *
+     * @param n is a positive integer
+     * @return n / 2 (if n is even)
+     *         3 * n + 1 (if n is odd)
+     */
     public static int nextNumber(int n) {
-        if (n  == 128) {
-            return 1;
-        } else if (n == 5) {
-            return 3 * n + 1;
+        if (n % 2 == 0) {
+            return n / 2;
         } else {
-            return n * 2;
+            return 3 * n + 1;
         }
     }
 
     public static void main(String[] args) {
-        int n = 5;
-        System.out.print(n + " ");
-        while (n != 1) {
-            n = nextNumber(n);
-            System.out.print(n + " ");
+        int x = 5;
+        System.out.print(x + " ");
+        while (x != 1){
+            x = nextNumber(x);
+            System.out.print(x + " ");
         }
         System.out.println();
     }
-}
 
+}
