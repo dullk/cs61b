@@ -1,6 +1,5 @@
 /** Class that print the Collatz sequence starting from a given number.
  *  @author Zhen Kang
- *  newly update on May 3rd, 2023
  */
 public class Collatz {
     /** Method that get the next term of a positive integer
