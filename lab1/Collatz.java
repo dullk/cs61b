@@ -1,4 +1,5 @@
 /** Class that print the Collatz sequence starting from a given number.
+ *  updated on May 3rd, 2023
  *  @author Zhen Kang
  */
 public class Collatz {
