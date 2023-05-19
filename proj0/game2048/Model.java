@@ -129,6 +129,12 @@ public class Model extends Observable {
                         changed = true;
                     } else {
                         top -= 1;
+                        if (top == row) {
+                            continue;
+                        } else {
+                            board.move(col, top, board.tile(col, row));
+                            changed = true;
+                        }
                     }
                 }
             }
