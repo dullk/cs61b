@@ -106,38 +106,65 @@ public class Model extends Observable {
      *    value, then the leading two tiles in the direction of motion merge,
      *    and the trailing tile does not.
      * */
+
+    /** Get the value of current tile at (col, row) with respect to the current viewPerspective.
+     *     return 0 if current tile is null.
+     * */
+    private int getValue(int col, int row) {
+        if (board.tile(col, row) != null) {
+            return board.tile(col, row).value();
+        } else {
+            return 0;
+        }
+    }
+
+    /** Return ture if current tile at (col, row) with respect to the current
+     *  viewPerspective is null. Else return false.
+     * */
+    private boolean isEmpty(int col, int row) {
+        return board.tile(col, row) == null;
+    }
+
+    /** Tilt a single column with respect to the current viewPerspective.
+     *  Return true if there is any change on board.
+     * */
+    private boolean colTilt(int col) {
+        boolean changed = false;
+        int top = board.size() - 1;
+        for (int row = top - 1; row >= 0; row -= 1) {
+            if (isEmpty(col, row)) {
+                continue;
+            } else {
+                Tile cTile = board.tile(col, row);
+                if (isEmpty(col, top)) {
+                    board.move(col, top, cTile);
+                    changed = true;
+                } else if (getValue(col, row) == getValue(col, top)) {
+                    board.move(col, top, cTile);
+                    score += board.tile(col, top).value();
+                    top -= 1;
+                    changed = true;
+                } else {
+                    top -= 1;
+                    if (top == row) {
+                        continue;
+                    } else {
+                        board.move(col, top, board.tile(col, row));
+                        changed = true;
+                    }
+                }
+            }
+        }
+        return changed;
+    }
+
     public boolean tilt(Side side) {
         boolean changed;
         changed = false;
-
-        // TODO: Modify this.board (and perhaps this.score) to account
-        // for the tilt to the Side SIDE. If the board changed, set the
-        // changed local variable to true.
         board.setViewingPerspective(side);
         for (int col = 0; col < board.size(); col += 1) {
-            int top = board.size() - 1;
-            for (int row = top - 1; row >= 0; row -= 1) {
-                if (board.tile(col, row) == null) {
-                    continue;
-                } else {
-                    if (board.tile(col, top) == null) {
-                        board.move(col, top, board.tile(col, row));
-                        changed = true;
-                    } else if (board.tile(col, row).value() == board.tile(col, top).value()) {
-                        board.move(col, top, board.tile(col, row));
-                        score += board.tile(col, top).value();
-                        top -= 1;
-                        changed = true;
-                    } else {
-                        top -= 1;
-                        if (top == row) {
-                            continue;
-                        } else {
-                            board.move(col, top, board.tile(col, row));
-                            changed = true;
-                        }
-                    }
-                }
+            if (colTilt(col)) {
+                changed = true;
             }
         }
         board.setViewingPerspective(Side.NORTH);
