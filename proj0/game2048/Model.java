@@ -125,6 +125,7 @@ public class Model extends Observable {
                         changed = true;
                     } else if (board.tile(col, row).value() == board.tile(col, top).value()) {
                         board.move(col, top, board.tile(col, row));
+                        score += board.tile(col, top).value();
                         top -= 1;
                         changed = true;
                     } else {
