@@ -71,20 +71,44 @@ public class LinkedListDequeTest {
     }
 
     @Test
+    /*Check if add function works correctly after removing all items */
+    public void removeAddTest() {
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
+        for(int i = 0; i < 100; i++) {
+            lld1.addLast(i);
+        }
+        for(int i = 0; i < 29; i++) {
+            lld1.removeFirst();
+        }
+        for(int i = 29; i < 101; i++) {
+            lld1.removeLast();
+        }
+        for(int i = 0; i < 200; i++) {
+            lld1.addFirst(i);
+        }
+        assertEquals(58, (int) lld1.get(141));
+    }
+
+    @Test
     /* Check if you can create LinkedListDeques with different parameterized types*/
     public void multipleParamTest() {
         LinkedListDeque<String>  lld1 = new LinkedListDeque<String>();
         LinkedListDeque<Double>  lld2 = new LinkedListDeque<Double>();
         LinkedListDeque<Boolean> lld3 = new LinkedListDeque<Boolean>();
+        LinkedListDeque<Float> lld4 = new LinkedListDeque<>();
+        LinkedListDeque<Character> lld5 = new LinkedListDeque<>();
 
         lld1.addFirst("string");
         lld2.addFirst(3.14159);
         lld3.addFirst(true);
+        lld4.addLast(1.356644F);
+        lld5.addLast('K');
 
         String s = lld1.removeFirst();
         double d = lld2.removeFirst();
         boolean b = lld3.removeFirst();
-
+        float f = lld4.removeLast();
+        char c = lld5.removeLast();
     }
 
     @Test
@@ -97,7 +121,12 @@ public class LinkedListDequeTest {
         assertEquals("Should return null when removeFirst is called on an empty Deque,", null, lld1.removeFirst());
         assertEquals("Should return null when removeLast is called on an empty Deque,", null, lld1.removeLast());
 
-
+        lld1.addFirst(34);
+        lld1.addFirst(64);
+        lld1.removeFirst();
+        lld1.removeLast();
+        assertEquals("Should return null when removeFirst is called on an empty Deque,", null, lld1.removeFirst());
+        assertEquals("Should return null when removeLast is called on an empty Deque,", null, lld1.removeLast());
     }
 
     @Test
@@ -116,5 +145,61 @@ public class LinkedListDequeTest {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
 
+    }
+
+    @Test
+    /* Check if get function is correct*/
+    public void getTest() {
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
+        for(int i = 0; i < 10000; i++) {
+            lld1.addLast(i);
+        }
+        assertEquals(4786, (int) lld1.get(4786));
+
+        LinkedListDeque<String> lld2 = new LinkedListDeque<>("Hi");
+        lld2.addFirst("Hello");
+        lld2.addFirst(",");
+        lld2.addFirst("my");
+        lld2.addFirst("name");
+        lld2.addFirst("is");
+        lld2.addFirst("Java");
+        assertEquals("Hi", (String) lld2.get(6));
+    }
+
+    @Test
+    /* Check if getRecursive function is correct*/
+    public void getRecursiveTest() {
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
+        for(int i = 0; i < 10000; i++) {
+            lld1.addLast(i);
+        }
+        assertEquals(4786, (int) lld1.getRecursive(4786));
+
+        LinkedListDeque<String> lld2 = new LinkedListDeque<>();
+        lld2.addFirst("Hello");
+        lld2.addFirst(",");
+        lld2.addFirst("my");
+        lld2.addFirst("name");
+        lld2.addFirst("is");
+        lld2.addFirst("Java");
+        assertEquals("name", (String) lld2.getRecursive(2));
+    }
+
+    @Test
+    /* Check if printDeque work correctly. */
+    public void printDequeTest() {
+        LinkedListDeque<String> lld1 = new LinkedListDeque<>();
+        lld1.addFirst("Hello");
+        lld1.addFirst(",");
+        lld1.addFirst("my");
+        lld1.addFirst("name");
+        lld1.addFirst("is");
+        lld1.addFirst("Java");
+        System.out.println("********printDequeTest********");
+        System.out.println("Printing out deque: ");
+        lld1.printDeque();
+        System.out.println("Expect print: ");
+        System.out.println("Java is name my , Hello");
+        System.out.println("********printDequeTestEnd********");
     }
 }

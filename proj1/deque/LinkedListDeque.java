@@ -37,6 +37,16 @@ public class LinkedListDeque<ItemType> {
         sentinel.next = sentinel;
     }
 
+    public LinkedListDeque(ItemType item) {
+        size = 1;
+        sentinel = new ListNode();
+        ListNode p = new ListNode(item);
+        sentinel.prev = p;
+        sentinel.next = p;
+        p.prev = sentinel;
+        p.next = sentinel;
+    }
+
     public void addFirst(ItemType item) {
         ListNode newItem = new ListNode(item);
         newItem.prev = sentinel;
