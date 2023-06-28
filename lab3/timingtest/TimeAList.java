@@ -34,8 +34,7 @@ public class TimeAList {
         Ns.addLast(32000);
         Ns.addLast(64000);
         Ns.addLast(128000);
-        Ns.addLast(1280000);
-        Ns.addLast(12800000);
+
         for (int i = 0; i < Ns.size(); i += 1) {
             AList<Integer> testAList = new AList<>();
             int opCount = 0;
