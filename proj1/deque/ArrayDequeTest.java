@@ -12,4 +12,21 @@ public class ArrayDequeTest {
         }
         ad1.printDeque();
     }
+
+    @Test
+    public void addTest() {
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        ad1.addFirst(0);
+        ad1.addFirst(1);
+        ad1.addLast(2);
+        ad1.addLast(3);
+        ad1.printDeque();
+
+        ArrayDeque<Integer> ad2 = new ArrayDeque<>();
+        ad2.addLast(0);
+        ad2.addLast(1);
+        ad2.addFirst(2);
+        ad2.addFirst(3);
+        ad2.printDeque();
+    }
 }
