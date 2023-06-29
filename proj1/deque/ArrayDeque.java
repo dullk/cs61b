@@ -10,7 +10,7 @@ public class ArrayDeque<T> {
     public ArrayDeque() {
         size = 0;
         items = (T[]) new Object[8];
-        nextFirst = 7;
+        nextFirst = 0;
         nextLast = 1;
     }
 
@@ -47,12 +47,8 @@ public class ArrayDeque<T> {
         if (isFull()) {
             resize(size * 2);
         }
-        if (size == 0) {
-            items[0] = item;
-        } else {
-            items[nextFirst] = item;
-            nextFirst = (nextFirst - 1 + items.length) % items.length;
-        }
+        items[nextFirst] = item;
+        nextFirst = (nextFirst - 1 + items.length) % items.length;
         size += 1;
     }
 
@@ -61,12 +57,8 @@ public class ArrayDeque<T> {
         if (isFull()) {
             resize(size * 2);
         }
-        if (size == 0) {
-            items[0] = item;
-        } else {
-            items[nextLast] = item;
-            nextLast = (nextLast + 1) % items.length;
-        }
+        items[nextLast] = item;
+        nextLast = (nextLast + 1) % items.length;
         size += 1;
     }
 

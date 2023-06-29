@@ -19,11 +19,17 @@ public class ArrayDequeTest {
         ad1.addFirst(0);
         ad1.addFirst(1);
         ad1.addLast(2);
+        ad1.removeFirst();
+        ad1.removeLast();
+        ad1.removeLast();
         ad1.addLast(3);
+        ad1.addLast(2);
+        ad1.addFirst(1);
         ad1.printDeque();
 
         ArrayDeque<Integer> ad2 = new ArrayDeque<>();
         ad2.addLast(0);
+        ad2.removeFirst();
         ad2.addLast(1);
         ad2.addFirst(2);
         ad2.addFirst(3);
