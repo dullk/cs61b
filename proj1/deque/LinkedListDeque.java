@@ -1,8 +1,6 @@
 package deque;
 
-import java.util.Iterator;
-
-public class LinkedListDeque<ItemType> {
+public class LinkedListDeque<T> {
 
     private int size;
     private final ListNode sentinel;
@@ -10,14 +8,14 @@ public class LinkedListDeque<ItemType> {
     /** Helper class of LinkedListDeque. */
     public class ListNode {
         public ListNode prev;
-        public ItemType item;
+        public T item;
         public ListNode next;
         public ListNode() {
             prev = null;
             item = null;
             next = null;
         }
-        private ListNode(ItemType item) {
+        private ListNode(T item) {
             prev = null;
             this.item = item;
             next = null;
@@ -25,7 +23,7 @@ public class LinkedListDeque<ItemType> {
 
         /** Helper method of getRecursive.
          * Get the i-th item of the LinkedList recursively. */
-        private ItemType get(int index) {
+        private T get(int index) {
             if (index == 0) {
                 return item;
             } else {
@@ -43,7 +41,7 @@ public class LinkedListDeque<ItemType> {
     }
 
     /** Create a LinkedListDeque with a ListNode item. */
-    public LinkedListDeque(ItemType item) {
+    public LinkedListDeque(T item) {
         size = 1;
         sentinel = new ListNode();
         ListNode p = new ListNode(item);
@@ -54,7 +52,7 @@ public class LinkedListDeque<ItemType> {
     }
 
     /** Add item to the first of the LinkedListDeque. */
-    public void addFirst(ItemType item) {
+    public void addFirst(T item) {
         ListNode newItem = new ListNode(item);
         newItem.prev = sentinel;
         newItem.next = sentinel.next;
@@ -64,7 +62,7 @@ public class LinkedListDeque<ItemType> {
     }
 
     /** Add item to the end of the LinkedListDeque. */
-    public void addLast(ItemType item) {
+    public void addLast(T item) {
         ListNode newItem = new ListNode(item);
         newItem.prev = sentinel.prev;
         newItem.next = sentinel;
@@ -94,7 +92,7 @@ public class LinkedListDeque<ItemType> {
     /** Remove the first item of LinkedListDeque.
      *  Return null if LinkedListDeque is empty.
      *  Return the removed item if not empty. */
-    public ItemType removeFirst() {
+    public T removeFirst() {
         if (isEmpty()) {
             return null;
         } else {
@@ -109,7 +107,7 @@ public class LinkedListDeque<ItemType> {
     /** Remove the last item of LinkedListDeque.
      *  Return null if LinkedListDeque is empty.
      *  Return the removed item if not empty. */
-    public ItemType removeLast() {
+    public T removeLast() {
         if (sentinel.prev == sentinel) {
             return null;
         } else {
@@ -123,7 +121,7 @@ public class LinkedListDeque<ItemType> {
 
     /** Return the index-th item of LinkedListDeque iteratively.
      *  Return null if index < 0 or out of bound. */
-    public ItemType get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= size) {
             return null;
         } else {
@@ -139,7 +137,7 @@ public class LinkedListDeque<ItemType> {
 
     /** Return the index-th item of LinkedListDeque recursively, using the get method in ListNode class.
      *  Return null if index < 0 or out of bound. */
-    public ItemType getRecursive(int index) {
+    public T getRecursive(int index) {
         if (index < 0 || index >= size) {
             return null;
         } else {

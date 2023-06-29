@@ -1,17 +1,17 @@
 package deque;
 
-public class ArrayDeque<ItemType> {
+public class ArrayDeque<T> {
     private int size;
-    private ItemType[] items;
+    private T[] items;
     private int nextFirst;
     private int nextLast;
 
     /** Initialize an empty ArrayDeque. */
     public ArrayDeque() {
         size = 0;
-        items = (ItemType[]) new Object[8];
+        items = (T[]) new Object[8];
         nextFirst = 0;
-        nextLast = 1;
+        nextLast = 0;
     }
 
 //    /** Create a ArrayDeque with one item. */
@@ -26,9 +26,9 @@ public class ArrayDeque<ItemType> {
     /** Resize the length of items[] to the target capacity, starting from 0, which means
      *  nextFirst changes to (items.length - 1). */
     public void resize(int capacity) {
-        ItemType[] newItems = (ItemType[]) new Object[capacity];
+        T[] newItems = (T[]) new Object[capacity];
         int first = (nextFirst + 1) % items.length;
-        int last = (nextLast - 1) % items.length;
+        int last = (nextLast - 1 + items.length) % items.length;
 
         if (first < last) {
             System.arraycopy(items, first, newItems, 0, size);
@@ -43,19 +43,23 @@ public class ArrayDeque<ItemType> {
     }
 
     /** Add item to the first of the ArrayDeque. */
-    public void addFirst(ItemType item) {
+    public void addFirst(T item) {
         if (isFull()) {
             resize(size * 2);
+        } else if (isEmpty()) {
+            nextLast = 1;
         }
         items[nextFirst] = item;
-        nextFirst = (nextFirst - 1) % items.length;
+        nextFirst = (nextFirst - 1 + items.length) % items.length;
         size += 1;
     }
 
     /** Add item to the end of the LinkedListDeque. */
-    public void addLast(ItemType item) {
+    public void addLast(T item) {
         if (isFull()) {
             resize(size * 2);
+        } else if (isEmpty()) {
+            nextFirst = items.length - 1;
         }
         items[nextLast] = item;
         nextLast = (nextFirst + 1) % items.length;
@@ -73,8 +77,8 @@ public class ArrayDeque<ItemType> {
     }
 
     /** Return true if size / items.length < 25%. */
-    private boolean isProportional() {
-        return (items.length < 16 || (float) size / (float) items.length >= 0.25);
+    private boolean isNotProportional() {
+        return (items.length >= 16 && (float) size / (float) items.length < 0.25);
     }
 
     /** Return the size of LinkedListDeque. */
@@ -82,27 +86,19 @@ public class ArrayDeque<ItemType> {
         return size;
     }
 
-    /** Print all items of LinkedListDeque, divided by blank space. */
-    public void printDeque() {
-        for (int i = 0; i < size; i++) {
-            System.out.print(get(i) + " ");
-        }
-        System.out.println();
-    }
-
     /** Remove the first item of LinkedListDeque.
      *  Return null if LinkedListDeque is empty.
      *  Return the removed item if not empty. */
-    public ItemType removeFirst() {
+    public T removeFirst() {
         if (isEmpty()) {
             return null;
         } else {
             int first = (nextFirst + 1) % items.length;
-            ItemType firstItem = items[first];
+            T firstItem = items[first];
             items[first] = null;
-            nextFirst = (nextFirst + 1) % items.length;
+            nextFirst = first;
             size -= 1;
-            if (!isProportional()) {
+            if (isNotProportional()) {
                 resize(items.length / 2);
             }
             return firstItem;
@@ -112,16 +108,16 @@ public class ArrayDeque<ItemType> {
     /** Remove the last item of LinkedListDeque.
      *  Return null if LinkedListDeque is empty.
      *  Return the removed item if not empty. */
-    public ItemType removeLast() {
+    public T removeLast() {
         if (isEmpty()) {
             return null;
         } else {
-            int last = (nextLast - 1) % items.length;
-            ItemType lastItem = items[last];
+            int last = (nextLast - 1 + items.length) % items.length;
+            T lastItem = items[last];
             items[last] = null;
-            nextLast = (nextLast - 1) % items.length;
+            nextLast = last;
             size -= 1;
-            if (!isProportional()) {
+            if (isNotProportional()) {
                 resize(items.length / 2);
             }
             return lastItem;
@@ -130,12 +126,20 @@ public class ArrayDeque<ItemType> {
 
     /** Return the index-th item of LinkedListDeque iteratively.
      *  Return null if index < 0 or out of bound. */
-    public ItemType get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= size) {
             return null;
         } else {
-            int indexArray = (nextFirst + 1) % items.length + index;
+            int indexArray = (nextFirst + 1 + index) % items.length;
             return items[indexArray];
         }
+    }
+
+    /** Print all items of LinkedListDeque, divided by blank space. */
+    public void printDeque() {
+        for (int i = 0; i < size; i++) {
+            System.out.print(get(i) + " ");
+        }
+        System.out.println();
     }
 }
