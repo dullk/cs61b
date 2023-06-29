@@ -7,6 +7,7 @@ public class LinkedListDeque<ItemType> {
     private int size;
     private final ListNode sentinel;
 
+    /** Helper class of LinkedListDeque. */
     public class ListNode {
         public ListNode prev;
         public ItemType item;
@@ -21,6 +22,9 @@ public class LinkedListDeque<ItemType> {
             this.item = item;
             next = null;
         }
+
+        /** Helper method of getRecursive.
+         * Get the i-th item of the LinkedList recursively. */
         private ItemType get(int index) {
             if (index == 0) {
                 return item;
@@ -30,6 +34,7 @@ public class LinkedListDeque<ItemType> {
         }
     }
 
+    /** Initialize an empty LinkedListDeque. */
     public LinkedListDeque() {
         size = 0;
         sentinel = new ListNode();
@@ -37,6 +42,7 @@ public class LinkedListDeque<ItemType> {
         sentinel.next = sentinel;
     }
 
+    /** Create a LinkedListDeque with a ListNode item. */
     public LinkedListDeque(ItemType item) {
         size = 1;
         sentinel = new ListNode();
@@ -47,6 +53,7 @@ public class LinkedListDeque<ItemType> {
         p.next = sentinel;
     }
 
+    /** Add item to the first of the LinkedListDeque. */
     public void addFirst(ItemType item) {
         ListNode newItem = new ListNode(item);
         newItem.prev = sentinel;
@@ -56,6 +63,7 @@ public class LinkedListDeque<ItemType> {
         size += 1;
     }
 
+    /** Add item to the end of the LinkedListDeque. */
     public void addLast(ItemType item) {
         ListNode newItem = new ListNode(item);
         newItem.prev = sentinel.prev;
@@ -65,23 +73,29 @@ public class LinkedListDeque<ItemType> {
         size += 1;
     }
 
+    /** Return true if LinkedListDeque is empty, else return false. */
     public boolean isEmpty() {
         return (size == 0);
     }
 
+    /** Return the size of LinkedListDeque. */
     public int size() {
         return size;
     }
 
+    /** Print all items of LinkedListDeque, divided by blank space. */
     public void printDeque() {
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             System.out.print(get(i) + " ");
         }
-        System.out.print("\n");
+        System.out.println();
     }
 
+    /** Remove the first item of LinkedListDeque.
+     *  Return null if LinkedListDeque is empty.
+     *  Return the removed item if not empty. */
     public ItemType removeFirst() {
-        if (sentinel.next == sentinel) {
+        if (isEmpty()) {
             return null;
         } else {
             ListNode removeItem = sentinel.next;
@@ -92,6 +106,9 @@ public class LinkedListDeque<ItemType> {
         }
     }
 
+    /** Remove the last item of LinkedListDeque.
+     *  Return null if LinkedListDeque is empty.
+     *  Return the removed item if not empty. */
     public ItemType removeLast() {
         if (sentinel.prev == sentinel) {
             return null;
@@ -104,6 +121,8 @@ public class LinkedListDeque<ItemType> {
         }
     }
 
+    /** Return the index-th item of LinkedListDeque iteratively.
+     *  Return null if index < 0 or out of bound. */
     public ItemType get(int index) {
         if (index < 0 || index >= size) {
             return null;
@@ -118,6 +137,8 @@ public class LinkedListDeque<ItemType> {
         }
     }
 
+    /** Return the index-th item of LinkedListDeque recursively, using the get method in ListNode class.
+     *  Return null if index < 0 or out of bound. */
     public ItemType getRecursive(int index) {
         if (index < 0 || index >= size) {
             return null;
