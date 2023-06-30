@@ -1,6 +1,6 @@
 package deque;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T> {
     private int size;
     private T[] items;
     private int nextFirst;
@@ -14,18 +14,9 @@ public class ArrayDeque<T> {
         nextLast = 1;
     }
 
-//    /** Create a ArrayDeque with one item. */
-//    public ArrayDeque(ItemType item) {
-//        size = 1;
-//        items = (ItemType[]) new Object[8];
-//        items[0] = item;
-//        nextFirst = items.length - 1;
-//        nextLast = size;
-//    }
-
     /** Resize the length of items[] to the target capacity, starting from 0, which means
      *  nextFirst changes to (items.length - 1). */
-    public void resize(int capacity) {
+    private void resize(int capacity) {
         T[] newItems = (T[]) new Object[capacity];
         int first = (nextFirst + 1) % items.length;
         int last = (nextLast - 1 + items.length) % items.length;
@@ -43,6 +34,7 @@ public class ArrayDeque<T> {
     }
 
     /** Add item to the first of the ArrayDeque. */
+    @Override
     public void addFirst(T item) {
         if (isFull()) {
             resize(size * 2);
@@ -52,7 +44,8 @@ public class ArrayDeque<T> {
         size += 1;
     }
 
-    /** Add item to the end of the LinkedListDeque. */
+    /** Add item to the end of the ArrayDeque. */
+    @Override
     public void addLast(T item) {
         if (isFull()) {
             resize(size * 2);
@@ -62,10 +55,11 @@ public class ArrayDeque<T> {
         size += 1;
     }
 
-    /** Return true if LinkedListDeque is empty, else return false. */
-    public boolean isEmpty() {
-        return (size == 0);
-    }
+    /** Return true if ArrayDeque is empty, else return false. */
+//    @Override
+//    public boolean isEmpty() {
+//        return (size == 0);
+//    }
 
     /** Return true if items[] is full. */
     private boolean isFull() {
@@ -77,14 +71,16 @@ public class ArrayDeque<T> {
         return (items.length >= 16 && (float) size / (float) items.length < 0.25);
     }
 
-    /** Return the size of LinkedListDeque. */
+    /** Return the size of ArrayDeque. */
+    @Override
     public int size() {
         return size;
     }
 
-    /** Remove the first item of LinkedListDeque.
-     *  Return null if LinkedListDeque is empty.
+    /** Remove the first item of ArrayDeque.
+     *  Return null if ArrayDeque is empty.
      *  Return the removed item if not empty. */
+    @Override
     public T removeFirst() {
         if (isEmpty()) {
             return null;
@@ -101,9 +97,10 @@ public class ArrayDeque<T> {
         }
     }
 
-    /** Remove the last item of LinkedListDeque.
-     *  Return null if LinkedListDeque is empty.
+    /** Remove the last item of ArrayDeque.
+     *  Return null if ArrayDeque is empty.
      *  Return the removed item if not empty. */
+    @Override
     public T removeLast() {
         if (isEmpty()) {
             return null;
@@ -120,8 +117,9 @@ public class ArrayDeque<T> {
         }
     }
 
-    /** Return the index-th item of LinkedListDeque iteratively.
+    /** Return the index-th item of ArrayDeque iteratively.
      *  Return null if index < 0 or out of bound. */
+    @Override
     public T get(int index) {
         if (index < 0 || index >= size) {
             return null;
@@ -131,7 +129,8 @@ public class ArrayDeque<T> {
         }
     }
 
-    /** Print all items of LinkedListDeque, divided by blank space. */
+    /** Print all items of ArrayDeque, divided by blank space. */
+    @Override
     public void printDeque() {
         for (int i = 0; i < size; i++) {
             System.out.print(get(i) + " ");

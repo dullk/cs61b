@@ -1,12 +1,12 @@
 package deque;
 
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T> {
 
     private int size;
     private final ListNode sentinel;
 
     /** Helper class of LinkedListDeque. */
-    public class ListNode {
+    private class ListNode {
         public ListNode prev;
         public T item;
         public ListNode next;
@@ -40,18 +40,8 @@ public class LinkedListDeque<T> {
         sentinel.next = sentinel;
     }
 
-    /** Create a LinkedListDeque with a ListNode item. */
-    public LinkedListDeque(T item) {
-        size = 1;
-        sentinel = new ListNode();
-        ListNode p = new ListNode(item);
-        sentinel.prev = p;
-        sentinel.next = p;
-        p.prev = sentinel;
-        p.next = sentinel;
-    }
-
     /** Add item to the first of the LinkedListDeque. */
+    @Override
     public void addFirst(T item) {
         ListNode newItem = new ListNode(item);
         newItem.prev = sentinel;
@@ -62,6 +52,7 @@ public class LinkedListDeque<T> {
     }
 
     /** Add item to the end of the LinkedListDeque. */
+    @Override
     public void addLast(T item) {
         ListNode newItem = new ListNode(item);
         newItem.prev = sentinel.prev;
@@ -72,16 +63,19 @@ public class LinkedListDeque<T> {
     }
 
     /** Return true if LinkedListDeque is empty, else return false. */
-    public boolean isEmpty() {
-        return (size == 0);
-    }
+//    @Override
+//    public boolean isEmpty() {
+//        return (size == 0);
+//    }
 
     /** Return the size of LinkedListDeque. */
+    @Override
     public int size() {
         return size;
     }
 
     /** Print all items of LinkedListDeque, divided by blank space. */
+    @Override
     public void printDeque() {
         for (int i = 0; i < size; i++) {
             System.out.print(get(i) + " ");
@@ -92,6 +86,7 @@ public class LinkedListDeque<T> {
     /** Remove the first item of LinkedListDeque.
      *  Return null if LinkedListDeque is empty.
      *  Return the removed item if not empty. */
+    @Override
     public T removeFirst() {
         if (isEmpty()) {
             return null;
@@ -107,6 +102,7 @@ public class LinkedListDeque<T> {
     /** Remove the last item of LinkedListDeque.
      *  Return null if LinkedListDeque is empty.
      *  Return the removed item if not empty. */
+    @Override
     public T removeLast() {
         if (sentinel.prev == sentinel) {
             return null;
@@ -121,6 +117,7 @@ public class LinkedListDeque<T> {
 
     /** Return the index-th item of LinkedListDeque iteratively.
      *  Return null if index < 0 or out of bound. */
+    @Override
     public T get(int index) {
         if (index < 0 || index >= size) {
             return null;

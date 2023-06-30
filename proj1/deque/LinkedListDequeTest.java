@@ -156,7 +156,8 @@ public class LinkedListDequeTest {
         }
         assertEquals(4786, (int) lld1.get(4786));
 
-        LinkedListDeque<String> lld2 = new LinkedListDeque<>("Hi");
+        LinkedListDeque<String> lld2 = new LinkedListDeque<>();
+        lld2.addFirst("Hi");
         lld2.addFirst("Hello");
         lld2.addFirst(",");
         lld2.addFirst("my");
