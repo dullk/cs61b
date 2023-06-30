@@ -31,7 +31,7 @@ public class GuitarHeroLite {
 
             /* play the sample on standard audio */
             StdAudio.play(sample);
-
+            // System.out.print("*");
             /* advance the simulation of each guitar string by one step */
             stringA.tic();
             stringC.tic();
