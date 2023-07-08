@@ -162,7 +162,7 @@ public class LinkedListDeque<T> implements Deque<T> {
             return  returnItem;
         }
     }
-    
+
     public Iterator<T> iterator() {
         return new LinkedListDequeIterator();
     }
@@ -183,7 +183,7 @@ public class LinkedListDeque<T> implements Deque<T> {
             return false;
         }
         for (int i = 0; i < size; i += 1) {
-            if (this.get(i) != o.get(i)) {
+            if (!this.get(i).equals(o.get(i))) {
                 return false;
             }
         }
