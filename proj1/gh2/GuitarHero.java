@@ -8,7 +8,7 @@ import edu.princeton.cs.algs4.StdDraw;
  */
 public class GuitarHero {
     private static final int N = 37;
-    private static final String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
+    private static final String KEYBOARD = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
     private static GuitarString[] guitarStrings = new GuitarString[N];
     private static double getConcert(int index) {
         return 440.0 * Math.pow(2, (index - 24) / 12.0);
@@ -42,7 +42,7 @@ public class GuitarHero {
             /* check if the user has typed a key; if so, process it */
             if (StdDraw.hasNextKeyTyped()) {
                 char key = StdDraw.nextKeyTyped();
-                int index = keyboard.indexOf(key);
+                int index = KEYBOARD.indexOf(key);
                 if (index == -1) {
                     continue;
                 }

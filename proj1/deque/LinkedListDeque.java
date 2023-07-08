@@ -1,5 +1,7 @@
 package deque;
 
+import java.util.*;
+
 public class LinkedListDeque<T> implements Deque<T> {
 
     private int size;
@@ -7,10 +9,10 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     /** Helper class of LinkedListDeque. */
     private class ListNode {
-        public ListNode prev;
-        public T item;
-        public ListNode next;
-        public ListNode() {
+        private ListNode prev;
+        private T item;
+        private ListNode next;
+        private ListNode() {
             prev = null;
             item = null;
             next = null;
@@ -132,7 +134,8 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
     }
 
-    /** Return the index-th item of LinkedListDeque recursively, using the get method in ListNode class.
+    /** Return the index-th item of LinkedListDeque recursively,
+     *  using the get method in ListNode class.
      *  Return null if index < 0 or out of bound. */
     public T getRecursive(int index) {
         if (index < 0 || index >= size) {
@@ -141,5 +144,49 @@ public class LinkedListDeque<T> implements Deque<T> {
             ListNode p = sentinel.next;
             return p.get(index);
         }
+    }
+
+    /** Helper class of iterator. */
+    private class LinkedListDequeIterator implements Iterator<T> {
+        private ListNode p;
+        public LinkedListDequeIterator() {
+            p = sentinel;
+        }
+        public boolean hasNext() {
+            return p.next != sentinel;
+        }
+
+        public T next() {
+            T returnItem = p.next.item;
+            p = p.next;
+            return  returnItem;
+        }
+    }
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListDequeIterator();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null) {
+            return false;
+        }
+        if (!(other instanceof LinkedListDeque)) {
+            return false;
+        }
+        LinkedListDeque<T> o = (LinkedListDeque<T>) other;
+        if (this.size() != o.size()) {
+            return false;
+        }
+        for (int i = 0; i < size; i +=1) {
+            if (this.get(i) != o.get(i)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
