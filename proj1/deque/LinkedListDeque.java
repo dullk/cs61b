@@ -149,7 +149,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     /** Helper class of iterator. */
     private class LinkedListDequeIterator implements Iterator<T> {
         private ListNode p;
-        public LinkedListDequeIterator() {
+        LinkedListDequeIterator() {
             p = sentinel;
         }
         public boolean hasNext() {
@@ -163,6 +163,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         }
     }
 
+    @Override
     public Iterator<T> iterator() {
         return new LinkedListDequeIterator();
     }
@@ -175,14 +176,14 @@ public class LinkedListDeque<T> implements Deque<T> {
         if (other == null) {
             return false;
         }
-        if (!(other instanceof LinkedListDeque)) {
+        if (!(other instanceof Deque)) {
             return false;
         }
-        LinkedListDeque<T> o = (LinkedListDeque<T>) other;
+        Deque<T> o = (Deque<T>) other;
         if (this.size() != o.size()) {
             return false;
         }
-        for (int i = 0; i < size; i +=1) {
+        for (int i = 0; i < size; i += 1) {
             if (this.get(i) != o.get(i)) {
                 return false;
             }
