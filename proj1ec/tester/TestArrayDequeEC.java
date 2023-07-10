@@ -13,7 +13,7 @@ public class TestArrayDequeEC {
         StringBuilder errorMessage = new StringBuilder();
 
         for (int i = 0; i < 5000; i += 1) {
-            int randomInt = StdRandom.uniform(0, 5);
+            int randomInt = StdRandom.uniform(0, 4);
 
             if (randomInt == 0) {
                 sad1.addLast(i);
@@ -24,26 +24,18 @@ public class TestArrayDequeEC {
                 ads1.addFirst(i);
                 errorMessage.append("addFirst(").append(i).append(")\n");
             } else if (randomInt == 2) {
-//                if (sad1.isEmpty() || ads1.isEmpty()) {
-//                    continue;
-//                }
+                if (sad1.isEmpty() || ads1.isEmpty()) {
+                    continue;
+                }
                 assertEquals(errorMessage.toString(), ads1.removeFirst(), sad1.removeFirst());
                 errorMessage.append("removeFirst()\n");
             } else if (randomInt == 3) {
-//                if (sad1.isEmpty() || ads1.isEmpty()) {
-//                    continue;
-//                }
+                if (sad1.isEmpty() || ads1.isEmpty()) {
+                    continue;
+                }
                 assertEquals(errorMessage.toString(), ads1.removeLast(), sad1.removeLast());
                 errorMessage.append("removeLast()\n");
-                }// else if (randomInt == 4) {
-//                if (sad1.isEmpty() || ads1.isEmpty()) {
-//                    continue;
-//                }
-//                assertEquals(ads1.size(), sad1.size());
-//                int randomIndex = StdRandom.uniform(0, ads1.size());
-//                assertEquals(ads1.get(randomIndex), sad1.get(randomIndex));
-//                assertEquals(ads1.getRecursive(randomIndex), sad1.get(randomIndex));
-//            }
+                }
         }
     }
 }
