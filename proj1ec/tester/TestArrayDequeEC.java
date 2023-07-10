@@ -10,7 +10,7 @@ public class TestArrayDequeEC {
     public void studentArrayDequeTest() {
         StudentArrayDeque<Integer> sad1 = new StudentArrayDeque<>();
         ArrayDequeSolution<Integer> ads1 = new ArrayDequeSolution<>();
-        StringBuilder errorMessage = new StringBuilder("\n");
+        StringBuilder errorMessage = new StringBuilder();
 
         for (int i = 0; i < 5000; i += 1) {
             int randomInt = StdRandom.uniform(0, 5);
