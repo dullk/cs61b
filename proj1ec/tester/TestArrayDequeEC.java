@@ -27,14 +27,14 @@ public class TestArrayDequeEC {
                 if (sad1.isEmpty() || ads1.isEmpty()) {
                     continue;
                 }
-                assertEquals(errorMessage.toString(), ads1.removeFirst(), sad1.removeFirst());
                 errorMessage.append("removeFirst()\n");
+                assertEquals(errorMessage.toString(), ads1.removeFirst(), sad1.removeFirst());
             } else if (randomInt == 3) {
                 if (sad1.isEmpty() || ads1.isEmpty()) {
                     continue;
                 }
-                assertEquals(errorMessage.toString(), ads1.removeLast(), sad1.removeLast());
                 errorMessage.append("removeLast()\n");
+                assertEquals(errorMessage.toString(), ads1.removeLast(), sad1.removeLast());
                 }
         }
     }
