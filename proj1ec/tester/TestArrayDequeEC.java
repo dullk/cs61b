@@ -24,15 +24,15 @@ public class TestArrayDequeEC {
                 ads1.addFirst(i);
                 errorMessage.append("addFirst(").append(i).append(")\n");
             } else if (randomInt == 2) {
-                if (sad1.isEmpty() || ads1.isEmpty()) {
-                    continue;
-                }
+//                if (sad1.isEmpty() || ads1.isEmpty()) {
+//                    continue;
+//                }
                 assertEquals(errorMessage.toString(), ads1.removeFirst(), sad1.removeFirst());
                 errorMessage.append("removeFirst()\n");
             } else if (randomInt == 3) {
-                if (sad1.isEmpty() || ads1.isEmpty()) {
-                    continue;
-                }
+//                if (sad1.isEmpty() || ads1.isEmpty()) {
+//                    continue;
+//                }
                 assertEquals(errorMessage.toString(), ads1.removeLast(), sad1.removeLast());
                 errorMessage.append("removeLast()\n");
                 }// else if (randomInt == 4) {
