@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 
 public class TestFlik {
     @Test
-    public void testFlik () {
+    public void testFlik() {
         assertTrue(Flik.isSameNumber(1, 1));
         assertTrue(Flik.isSameNumber(500, 500));
         assertTrue(Flik.isSameNumber(23523, 23523));

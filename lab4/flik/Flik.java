@@ -7,7 +7,8 @@ public class Flik {
     /** @param a Value 1
      *  @param b Value 2
      *  @return Whether a and b are the same */
-    public static boolean isSameNumber(int a, int b) { // int is a primitive type, while Integer is a class.
+    public static boolean isSameNumber(int a, int b) {
+        // int is a primitive type, while Integer is a class.
         return a == b;
     }
 }
