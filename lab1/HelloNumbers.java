@@ -1,6 +1,3 @@
-/**
- * updated on May 6th, 2023 by Zhen Kang
- */
 public class HelloNumbers {
     public static void main(String[] args) {
         int x = 1;
