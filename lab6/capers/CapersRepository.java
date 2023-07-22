@@ -1,10 +1,12 @@
 package capers;
 
 import java.io.File;
+import java.io.IOException;
+
 import static capers.Utils.*;
 
 /** A repository for Capers 
- * @author TODO
+ * @author Zhen kang
  * The structure of a Capers Repository is as follows:
  *
  * .capers/ -- top level folder for all persistent data in your lab12 folder
@@ -18,7 +20,7 @@ public class CapersRepository {
     static final File CWD = new File(System.getProperty("user.dir"));
 
     /** Main metadata folder. */
-    static final File CAPERS_FOLDER = null; // TODO Hint: look at the `join`
+    static final File CAPERS_FOLDER = join(CWD, ".capers"); // TODO Hint: look at the `join`
                                             //      function in Utils
 
     /**
@@ -32,6 +34,22 @@ public class CapersRepository {
      */
     public static void setupPersistence() {
         // TODO
+        try {
+            File dogs = new File(CAPERS_FOLDER,"dogs");
+            File stories = new File(CAPERS_FOLDER,"story");
+            if (!dogs.exists()) {
+                dogs.mkdirs();
+            }
+            if (!stories.exists()) {
+                stories.mkdirs();
+            }
+            File storyFile = new File(stories,"storyFile");
+            if (!storyFile.exists()) {
+                storyFile.createNewFile();
+            }
+        } catch (IOException ex) {
+            System.out.println("IOException in setupPersistence.");
+        }
     }
 
     /**
@@ -41,6 +59,10 @@ public class CapersRepository {
      */
     public static void writeStory(String text) {
         // TODO
+        File inFile = join(CAPERS_FOLDER,"story", "storyFile");
+        String storyText = readContentsAsString(inFile) + text + "\n";
+        System.out.println(storyText);
+        writeContents(inFile, storyText);
     }
 
     /**
@@ -50,6 +72,8 @@ public class CapersRepository {
      */
     public static void makeDog(String name, String breed, int age) {
         // TODO
+        Dog newDog = new Dog(name, breed, age);
+        newDog.saveDog();
     }
 
     /**
@@ -60,5 +84,12 @@ public class CapersRepository {
      */
     public static void celebrateBirthday(String name) {
         // TODO
+        Dog readDog = Dog.fromFile(name);
+        if (readDog == null) {
+            return;
+        }
+        readDog.haveBirthday();
+        File writeFile = join(Dog.DOG_FOLDER, name);
+        writeObject(writeFile, readDog);
     }
 }

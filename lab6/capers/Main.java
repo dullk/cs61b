@@ -5,7 +5,7 @@ import java.io.File;
 import static capers.Utils.*;
 
 /** Canine Capers: A Gitlet Prelude.
- * @author TODO
+ * @author Zhen Kang
 */
 public class Main {
     /**
@@ -52,10 +52,25 @@ public class Main {
             break;
         case "dog":
             validateNumArgs("dog", args, 4);
+            try {
+                String dogName = args[1];
+                String dogBreed = args[2];
+                int dogAge = Integer.parseInt(args[3]);
+                CapersRepository.makeDog(dogName, dogBreed, dogAge);
+            } catch (Exception ex) {
+                System.out.println("Invalid input.");
+            }
             // TODO: make a dog
             break;
         case "birthday":
             validateNumArgs("birthday", args, 2);
+            try {
+                String dogName = args[1];
+                CapersRepository.celebrateBirthday(dogName);
+
+            } catch (Exception ex) {
+                System.out.println("Invalid input.");
+            }
             // TODO: celebrate this dog's birthday
             break;
         default:
