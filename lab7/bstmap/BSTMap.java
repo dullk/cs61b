@@ -1,7 +1,9 @@
 package bstmap;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
   private BSTNode root;
@@ -137,19 +139,158 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     printHelper(root);
   }
 
+  private void keySetHelper(BSTNode node, Set<K> set) {
+    if (node == null) {
+      return;
+    }
+    keySetHelper(node.getLeft(), set);
+    set.add(node.getKey());
+    keySetHelper(node.getRight(), set);
+  }
+
   @Override
   public Set<K> keySet() {
-    throw new UnsupportedOperationException();
+    Set<K> set = new TreeSet<>();
+    keySetHelper(root, set);
+    return set;
   }
 
   @Override
   public V remove(K key) {
-    throw new UnsupportedOperationException();
+    BSTNode node = root;
+    BSTNode prev = null;
+    while (node != null) {
+      if (node.getKey().compareTo(key) == 0) {
+        V value = node.getValue();
+        // Find new root from left
+        if (node.getLeft() != null) {
+          BSTNode newRoot = node.getLeft();
+          BSTNode preRoot = null;
+          while (newRoot.getRight() != null) {
+            preRoot = newRoot;
+            newRoot = newRoot.getRight();
+          }
+          newRoot.setRight(node.getRight());
+          if (prev == null) {
+            root = newRoot;
+          } else if (prev.getKey().compareTo(node.getKey()) > 0) {
+            prev.setLeft(newRoot);
+          } else {
+            prev.setRight(newRoot);
+          }
+          if (preRoot != null) {
+            preRoot.setRight(newRoot.getLeft());
+            newRoot.setLeft(node.getLeft());
+          }
+        } else if (node.getRight() != null) {
+          BSTNode newRoot = node.getRight();
+          BSTNode preRoot = null;
+          while (newRoot.getLeft() != null) {
+            preRoot = newRoot;
+            newRoot = newRoot.getLeft();
+          }
+          newRoot.setLeft(node.getLeft());
+          if (prev == null) {
+            root = newRoot;
+          } else if (prev.getKey().compareTo(node.getKey()) > 0) {
+            prev.setLeft(newRoot);
+          } else {
+            prev.setRight(newRoot);
+          }
+          if (preRoot != null) {
+            preRoot.setLeft(newRoot.getRight());
+            newRoot.setRight(node.getRight());
+          }
+        } else {
+          if (prev == null) {
+            root = null;
+          } else if (prev.getKey().compareTo(node.getKey()) > 0) {
+            prev.setLeft(null);
+          } else {
+            prev.setRight(null);
+          }
+        }
+        size -= 1;
+        return value;
+      }
+      prev = node;
+      if (node.getKey().compareTo(key) < 0) {
+        node = node.getRight();
+      } else if (node.getKey().compareTo(key) > 0) {
+        node = node.getLeft();
+      }
+    }
+    return null;
   }
 
   @Override
   public V remove(K key, V value) {
-    throw new UnsupportedOperationException();
+    BSTNode node = root;
+    BSTNode prev = null;
+    while (node != null) {
+      if (node.getKey().compareTo(key) == 0) {
+        if (node.getValue() != value) {
+          return null;
+        }
+        // Find new root from left
+        if (node.getLeft() != null) {
+          BSTNode newRoot = node.getLeft();
+          BSTNode preRoot = null;
+          while (newRoot.getRight() != null) {
+            preRoot = newRoot;
+            newRoot = newRoot.getRight();
+          }
+          newRoot.setRight(node.getRight());
+          if (prev == null) {
+            root = null;
+          } else if (prev.getKey().compareTo(node.getKey()) > 0) {
+            prev.setLeft(newRoot);
+          } else {
+            prev.setRight(newRoot);
+          }
+          if (preRoot != null) {
+            preRoot.setRight(newRoot.getLeft());
+            newRoot.setLeft(node.getLeft());
+          }
+        } else if (node.getRight() != null) {
+          BSTNode newRoot = node.getRight();
+          BSTNode preRoot = null;
+          while (newRoot.getLeft() != null) {
+            preRoot = newRoot;
+            newRoot = newRoot.getLeft();
+          }
+          newRoot.setLeft(node.getLeft());
+          if (prev == null) {
+            root = null;
+          } else if (prev.getKey().compareTo(node.getKey()) > 0) {
+            prev.setLeft(newRoot);
+          } else {
+            prev.setRight(newRoot);
+          }
+          if (preRoot != null) {
+            preRoot.setLeft(newRoot.getRight());
+            newRoot.setRight(node.getRight());
+          }
+        } else {
+          if (prev == null) {
+            root = null;
+          } else if (prev.getKey().compareTo(node.getKey()) > 0) {
+            prev.setLeft(null);
+          } else {
+            prev.setRight(null);
+          }
+        }
+        size -= 1;
+        return value;
+      }
+      prev = node;
+      if (node.getKey().compareTo(key) < 0) {
+        node = node.getRight();
+      } else if (node.getKey().compareTo(key) > 0) {
+        node = node.getLeft();
+      }
+    }
+    return null;
   }
 
   @Override
